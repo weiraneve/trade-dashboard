@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import OrderChart from './components/OrderChart';
+import logo from './logo.svg';
+import './App.css';
 
 function App() {
-    const [orders, setOrders] = useState([]);
-
-    useEffect(() => {
-        const fetchOrders = async () => {
-            const response = await fetch('/api/orders');
-            const data = await response.json();
-            setOrders(data);
-        };
-
-        fetchOrders();
-    }, []);
-
-    return (
-        <div className="App">
-            <h1>Trading System</h1>
-            <OrderChart orders={orders} />
-        </div>
-    );
+  return (
+    <div className="App">
+      <header className="App-header">
+        <img src={logo} className="App-logo" alt="logo" />
+        <p>
+          Edit <code>src/App.js</code> and save to reload.
+        </p>
+        <a
+          className="App-link"
+          href="https://reactjs.org"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Learn React
+        </a>
+      </header>
+    </div>
+  );
 }
 
 export default App;
