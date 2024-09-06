@@ -27,4 +27,10 @@ const getOrderById = async (id) => {
     return rows[0];
 };
 
-module.exports = { createOrder, updateOrderStatus, getOrderById };
+const getAllOrders = async () => {
+    const connection = getConnection();
+    const [rows] = await connection.execute('SELECT * FROM orders');
+    return rows;
+};
+
+module.exports = { createOrder, updateOrderStatus, getOrderById, getAllOrders };

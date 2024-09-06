@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { createOrder, updateOrderStatus, getOrderById } = require('../models/order');
+const { createOrder, updateOrderStatus, getOrderById, getAllOrders } = require('../models/order');
 
 router.post('/api/orders', async (req, res) => {
     const { type, amount, status } = req.body;
@@ -23,6 +23,15 @@ router.patch('/api/orders/:id', async (req, res) => {
         res.json({ id: req.params.id, status: req.body.status });
     } catch (err) {
         res.status(400).json({ message: err.message });
+    }
+});
+
+router.get('/api/orders', async (req, res) => {
+    try {
+        const orders = await getAllOrders();
+        res.json(orders);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
     }
 });
 
