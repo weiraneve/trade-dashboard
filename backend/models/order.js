@@ -1,9 +1,30 @@
-const mongoose = require('mongoose');
+const { getConnection } = require('../config/db');
 
-const orderSchema = new mongoose.Schema({
-    type: { type: String, required: true },
-    amount: { type: Number, required: true },
-    status: { type: String, required: true, enum: ['pending', 'completed', 'cancelled'] },
-}, { timestamps: true });
+const createOrder = async (type, amount, status) => {
+    const connection = getConnection();
+    const [result] = await connection.execute(
+        'INSERT INTO orders (type, amount, status) VALUES (?, ?, ?)',
+        [type, amount, status]
+    );
+    return result.insertId;
+};
 
-module.exports = mongoose.model('Order', orderSchema);
+const updateOrderStatus = async (id, status) => {
+    const connection = getConnection();
+    const [result] = await connection.execute(
+        'UPDATE orders SET status = ? WHERE id = ?',
+        [status, id]
+    );
+    return result.affectedRows;
+};
+
+const getOrderById = async (id) => {
+    const connection = getConnection();
+    const [rows] = await connection.execute(
+        'SELECT * FROM orders WHERE id = ?',
+        [id]
+    );
+    return rows[0];
+};
+
+module.exports = { createOrder, updateOrderStatus, getOrderById };
