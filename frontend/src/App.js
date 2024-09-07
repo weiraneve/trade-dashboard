@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, Grid } from '@mui/material';
+import { Container, Box, Grid } from '@mui/material';
 import OrderList from './components/OrderList';
 import OrderForm from './components/OrderForm';
 import OrderChart from './components/OrderChart';
