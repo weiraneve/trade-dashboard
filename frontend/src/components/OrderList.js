@@ -1,12 +1,9 @@
 import React from 'react';
-import { List, ListItem, Typography, ListItemText, Button, Box } from '@mui/material';
+import { List, ListItem, ListItemText, Button, Box } from '@mui/material';
 
 const OrderList = ({ orders, onUpdateStatus }) => {
     return (
         <Box mt={4}>
-            <Typography variant="h5" component="h2" gutterBottom>
-                Orders
-            </Typography>
             <List>
                 {orders.map((order) => (
                     <ListItem key={order.id} divider>

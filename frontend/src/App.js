@@ -30,19 +30,26 @@ function App() {
 
     return (
         <Container>
-            <Box my={4}>
-                <Typography variant="h3" component="h1" gutterBottom>
-                    Trading System
-                </Typography>
+            <Box my={4} display="flex" flexDirection="column" alignItems="center">
+                <Box mb={4} display="flex" justifyContent="center" width="100%">
+                    <img
+                        src="logo.svg"
+                        alt="logo"
+                        style={{
+                            maxWidth: '200px',
+                            height: 'auto',
+                        }}
+                    />
+                </Box>
                 <Grid container spacing={4}>
-                    <Grid item xs={12} md={6}>
+                    <Grid item xs={12} md={10}>
+                        <OrderList orders={orders} onUpdateStatus={handleUpdateOrderStatus} />
+                    </Grid>
+                    <Grid item xs={12} md={2}>
                         <OrderForm onCreateOrder={handleCreateOrder} />
                     </Grid>
-                    <Grid item xs={12} md={6}>
-                        <OrderChart orders={orders} />
-                    </Grid>
                     <Grid item xs={12}>
-                        <OrderList orders={orders} onUpdateStatus={handleUpdateOrderStatus} />
+                        <OrderChart orders={orders} />
                     </Grid>
                 </Grid>
             </Box>
