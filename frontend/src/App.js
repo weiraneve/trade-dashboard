@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import OrderChart from './components/OrderChart';
 import OrderList from './components/OrderList';
 import OrderForm from './components/OrderForm';
-import { fetchOrders, createOrder, updateOrderStatus } from './api';
+import { fetchOrders, createOrder, updateOrderStatus } from './network/api';
 
 function App() {
     const [orders, setOrders] = useState([]);
