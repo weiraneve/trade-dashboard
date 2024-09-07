@@ -29,7 +29,6 @@ router.patch('/api/orders/:id', async (req, res) => {
 router.get('/api/orders', async (req, res) => {
     try {
         const orders = await getAllOrders();
-        console.log(orders);
         res.json(orders);
     } catch (err) {
         res.status(500).json({ message: err.message });
