@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { TextField, Button, Box, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 
 const OrderForm = ({ onCreateOrder }) => {
     const [type, setType] = useState('');
@@ -14,26 +15,37 @@ const OrderForm = ({ onCreateOrder }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                type="text"
-                placeholder="Type"
+        <Box component="form" onSubmit={handleSubmit} mt={4}>
+            <TextField
+                label="Type"
                 value={type}
                 onChange={(e) => setType(e.target.value)}
+                fullWidth
+                margin="normal"
             />
-            <input
+            <TextField
+                label="Amount"
                 type="number"
-                placeholder="Amount"
                 value={amount}
                 onChange={(e) => setAmount(e.target.value)}
+                fullWidth
+                margin="normal"
             />
-            <select value={status} onChange={(e) => setStatus(e.target.value)}>
-                <option value="pending">Pending</option>
-                <option value="completed">Completed</option>
-                <option value="cancelled">Cancelled</option>
-            </select>
-            <button type="submit">Create Order</button>
-        </form>
+            <FormControl fullWidth margin="normal">
+                <InputLabel>Status</InputLabel>
+                <Select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                >
+                    <MenuItem value="pending">Pending</MenuItem>
+                    <MenuItem value="completed">Completed</MenuItem>
+                    <MenuItem value="cancelled">Cancelled</MenuItem>
+                </Select>
+            </FormControl>
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+                Create Order
+            </Button>
+        </Box>
     );
 };
 
