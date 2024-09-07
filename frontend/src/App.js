@@ -13,21 +13,31 @@ function App() {
 
     const fetchOrders = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/orders');
+            const response = await fetch('/api/orders');
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const data = await response.json();
-            console.log(data);
-            setOrders(data);
+            if (Array.isArray(data)) {
+                const processedOrders = data.map(order => ({
+                    ...order,
+                    createdAt: new Date(order.createdAt),
+                    updatedAt: new Date(order.updatedAt)
+                }));
+                setOrders(processedOrders);
+            } else {
+                console.error('Received data is not an array:', data);
+                setOrders([]);
+            }
         } catch (error) {
             console.error('Failed to fetch orders:', error);
+            setOrders([]);
         }
     };
 
     const createOrder = async () => {
         try {
-            const response = await fetch('http://localhost:4000/api/orders', {
+            const response = await fetch('api/orders', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -45,7 +55,7 @@ function App() {
 
     const updateOrderStatus = async (id, newStatus) => {
         try {
-            const response = await fetch(`http://localhost:4000/api/orders/${id}`, {
+            const response = await fetch(`api/orders/${id}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
