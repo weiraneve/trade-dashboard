@@ -17,7 +17,7 @@ const OrderForm = ({ onCreateOrder }) => {
     return (
         <Box component="form" onSubmit={handleSubmit} mt={4}>
             <TextField
-                label="Type"
+                label="Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 fullWidth
