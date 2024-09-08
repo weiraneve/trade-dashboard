@@ -1,6 +1,8 @@
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:4000';
+
 export const fetchOrders = async () => {
     try {
-        const response = await fetch('/api/orders');
+        const response = await fetch(`${API_BASE_URL}/api/orders`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -18,7 +20,7 @@ export const fetchOrders = async () => {
 
 export const createOrder = async (name, amount, status) => {
     try {
-        const response = await fetch('/api/orders', {
+        const response = await fetch(`${API_BASE_URL}/api/orders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,7 +37,7 @@ export const createOrder = async (name, amount, status) => {
 
 export const updateOrderStatus = async (id, newStatus) => {
     try {
-        const response = await fetch(`/api/orders/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
