@@ -1,13 +1,13 @@
 const request = require('supertest');
 const express = require('express');
-const ordersRouter = require('./orders');
+const ordersRouter = require('../../routes/orders');
 const { createOrder, updateOrderStatus, getOrderById, getAllOrders } = require('../../models/order');
 
 const app = express();
 app.use(express.json());
-app.use('/api/orders', ordersRouter);
+app.use('/', ordersRouter);
 
-jest.mock('../../backend/models/order');
+jest.mock('../../models/order');
 
 describe('Orders API', () => {
     describe('POST /api/orders', () => {
