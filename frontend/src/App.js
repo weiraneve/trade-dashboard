@@ -16,8 +16,8 @@ function App() {
         loadOrders();
     }, []);
 
-    const handleCreateOrder = async (type, amount, status) => {
-        await createOrder(type, amount, status);
+    const handleCreateOrder = async (name, amount, status) => {
+        await createOrder(name, amount, status);
         const orders = await fetchOrders();
         setOrders(orders);
     };

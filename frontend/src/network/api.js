@@ -16,14 +16,14 @@ export const fetchOrders = async () => {
     }
 };
 
-export const createOrder = async (type, amount, status) => {
+export const createOrder = async (name, amount, status) => {
     try {
         const response = await fetch('/api/orders', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ type, amount, status }),
+            body: JSON.stringify({ name, amount, status }),
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');

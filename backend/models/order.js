@@ -1,10 +1,10 @@
 const { getConnection } = require('../config/db');
 
-const createOrder = async (type, amount, status) => {
+const createOrder = async (name, amount, status) => {
     const connection = getConnection();
     const [result] = await connection.execute(
-        'INSERT INTO orders (type, amount, status) VALUES (?, ?, ?)',
-        [type, amount, status]
+        'INSERT INTO orders (name, amount, status) VALUES (?, ?, ?)',
+        [name, amount, status]
     );
     return result.insertId;
 };

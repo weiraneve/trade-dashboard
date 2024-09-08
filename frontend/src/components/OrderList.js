@@ -16,7 +16,7 @@ const OrderList = ({ orders, onUpdateStatus }) => {
                 {orders.map((order) => (
                     <ListItem key={order.id} divider>
                         <ListItemText
-                            primary={`${order.type} - ${order.amount}`}
+                            primary={`${order.name} - ${order.amount}`}
                             secondary={`Status: ${order.status}`}
                         />
                         <Button

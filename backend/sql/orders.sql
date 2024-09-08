@@ -4,7 +4,7 @@ USE trade;
 
 CREATE TABLE orders (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    type VARCHAR(255) NOT NULL,
+    name VARCHAR(255) NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
     status ENUM('pending', 'completed', 'cancelled') NOT NULL,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,

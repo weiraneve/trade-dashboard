@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { TextField, Button, Box, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 
 const OrderForm = ({ onCreateOrder }) => {
-    const [type, setType] = useState('');
+    const [name, setName] = useState('');
     const [amount, setAmount] = useState('');
     const [status, setStatus] = useState('pending');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        onCreateOrder(type, amount, status);
-        setType('');
+        onCreateOrder(name, amount, status);
+        setName('');
         setAmount('');
         setStatus('pending');
     };
@@ -18,8 +18,8 @@ const OrderForm = ({ onCreateOrder }) => {
         <Box component="form" onSubmit={handleSubmit} mt={4}>
             <TextField
                 label="Type"
-                value={type}
-                onChange={(e) => setType(e.target.value)}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 fullWidth
                 margin="normal"
             />

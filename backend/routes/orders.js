@@ -3,10 +3,10 @@ const router = express.Router();
 const { createOrder, updateOrderStatus, getOrderById, getAllOrders } = require('../models/order');
 
 router.post('/api/orders', async (req, res) => {
-    const { type, amount, status } = req.body;
+    const { name, amount, status } = req.body;
     try {
-        const orderId = await createOrder(type, amount, status);
-        res.status(201).json({ id: orderId, type, amount, status });
+        const orderId = await createOrder(name, amount, status);
+        res.status(201).json({ id: orderId, name, amount, status });
     } catch (err) {
         res.status(400).json({ message: err.message });
     }
