@@ -1,4 +1,4 @@
-CREATE DATABASE trade;
+CREATE DATABASE IF NOT EXISTS trade;
 
 USE trade;
 
