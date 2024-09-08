@@ -1,7 +1,15 @@
 import React from 'react';
-import { List, ListItem, ListItemText, Button, Box } from '@mui/material';
+import { List, ListItem, ListItemText, Typography, Button, Box } from '@mui/material';
 
 const OrderList = ({ orders, onUpdateStatus }) => {
+    if (orders.length === 0) {
+        return (
+            <Typography variant="h6" align="left">
+                No orders available.
+            </Typography>
+        );
+    }
+
     return (
         <Box mt={4}>
             <List>
