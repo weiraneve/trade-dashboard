@@ -25,7 +25,7 @@ export const createOrder = async (name, amount, status) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ name, amount, status }),
+            body: JSON.stringify({name, amount, status}),
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
@@ -42,11 +42,12 @@ export const updateOrderStatus = async (id, newStatus) => {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ status: newStatus }),
+            body: JSON.stringify({status: newStatus}),
         });
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
+        return await response.json();
     } catch (error) {
         console.error('Failed to update order status:', error);
     }
