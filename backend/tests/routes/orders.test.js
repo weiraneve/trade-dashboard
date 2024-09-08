@@ -1,7 +1,7 @@
 const request = require('supertest');
 const express = require('express');
 const ordersRouter = require('./orders');
-const { createOrder, updateOrderStatus, getOrderById, getAllOrders } = require('../models/order');
+const { createOrder, updateOrderStatus, getOrderById, getAllOrders } = require('../../models/order');
 
 const app = express();
 app.use(express.json());
