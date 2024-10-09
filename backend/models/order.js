@@ -1,36 +1,27 @@
-import { getConnection } from '../config/db';
+import { DataTypes } from 'sequelize';
 
-const createOrder = async (name, amount, status) => {
-    const connection = getConnection();
-    const [result] = await connection.execute(
-        'INSERT INTO orders (name, amount, status) VALUES (?, ?, ?)',
-        [name, amount, status]
-    );
-    return result.insertId;
-};
+import sequelize from '../config/db';
 
-const updateOrderStatus = async (id, status) => {
-    const connection = getConnection();
-    const [result] = await connection.execute(
-        'UPDATE orders SET status = ? WHERE id = ?',
-        [status, id]
-    );
-    return result.affectedRows;
-};
+const Order = sequelize.define('Order', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    name: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    amount: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false
+    },
+    status: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+}, {
+    tableName: 'orders'
+});
 
-const getOrderById = async (id) => {
-    const connection = getConnection();
-    const [rows] = await connection.execute(
-        'SELECT * FROM orders WHERE id = ?',
-        [id]
-    );
-    return rows[0];
-};
-
-const getAllOrders = async () => {
-    const connection = getConnection();
-    const [rows] = await connection.execute('SELECT * FROM orders');
-    return rows;
-};
-
-export { createOrder, updateOrderStatus, getOrderById, getAllOrders };
+export default Order
