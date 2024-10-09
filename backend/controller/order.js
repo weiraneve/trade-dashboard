@@ -1,4 +1,4 @@
-import Order from '../models/order';
+import OrderModel from '../models/order';
 
 class Order {
     constructor() {
@@ -6,10 +6,10 @@ class Order {
     }
 
     async createOrder(req, res, next) {
-        const { name, amount, status } = req.body;
+        const {name, amount, status} = req.body;
 
         try {
-            const order = await Order.create({
+            const order = await OrderModel.create({
                 name,
                 amount,
                 status
@@ -28,18 +28,18 @@ class Order {
 
     async updateStatus(req, res, next) {
         try {
-            const order = await Order.findByPk(req.params.id);
+            const order = await OrderModel.findByPk(req.params.id);
             if (!order) {
-                return res.status(404).json({ message: 'Order not found' });
+                return res.status(404).json({message: 'Order not found'});
             }
 
-            const [updatedRows] = await Order.update(
-                { status: req.body.status },
-                { where: { id: req.params.id } }
+            const [updatedRows] = await OrderModel.update(
+                {status: req.body.status},
+                {where: {id: req.params.id}}
             );
 
             if (updatedRows === 0) {
-                return res.status(400).json({ message: 'Failed to update order' });
+                return res.status(400).json({message: 'Failed to update order'});
             }
 
             res.json({
@@ -53,21 +53,7 @@ class Order {
 
     async getOrder(req, res, next) {
         try {
-            const order = await Order.findByPk(req.params.id);
-
-            if (!order) {
-                return res.status(404).json({ message: 'Order not found' });
-            }
-
-            res.json(order);
-        } catch (error) {
-            next(new Error(`Error fetching order: ${error.message}`));
-        }
-    }
-
-    async getOrder(req, res, next) {
-        try {
-            const order = await Order.findAll();
+            const order = await OrderModel.findAll();
             res.json(order);
         } catch (error) {
             next(new Error(`Error fetching order: ${error.message}`));
@@ -76,13 +62,13 @@ class Order {
 
     async deleteOrder(req, res, next) {
         try {
-            const order = await Order.findByPk(req.params.id);
+            const order = await OrderModel.findByPk(req.params.id);
 
             if (!order) {
-                return res.status(404).json({ message: 'Order not found' });
+                return res.status(404).json({message: 'Order not found'});
             }
 
-            await order.destroy();
+            await OrderModel.destroy();
             res.status(204).send();
         } catch (error) {
             next(new Error(`Error deleting order: ${error.message}`));
