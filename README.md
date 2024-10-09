@@ -17,3 +17,7 @@ And take the sql file for your mysql, then start.
 ## frontend
 
 Use React tech stack.
+
+## UI
+
+![](./docs/home.jpg)
