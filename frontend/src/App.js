@@ -3,29 +3,29 @@ import { Container, Box, Grid } from '@mui/material';
 import OrderList from './components/OrderList';
 import OrderForm from './components/OrderForm';
 import OrderChart from './components/OrderChart';
-import { fetchOrders, createOrder, updateOrderStatus } from './network/api';
+import { fetchOrder, createOrder, updateOrdertatus } from './network/api';
 
 function App() {
-    const [orders, setOrders] = useState([]);
+    const [order, setOrder] = useState([]);
 
     useEffect(() => {
-        const loadOrders = async () => {
-            const orders = await fetchOrders();
-            setOrders(orders);
+        const loadOrder = async () => {
+            const order = await fetchOrder();
+            setOrder(order);
         };
-        loadOrders();
+        loadOrder();
     }, []);
 
     const handleCreateOrder = async (name, amount, status) => {
         await createOrder(name, amount, status);
-        const orders = await fetchOrders();
-        setOrders(orders);
+        const order = await fetchOrder();
+        setOrder(order);
     };
 
-    const handleUpdateOrderStatus = async (id, newStatus) => {
-        await updateOrderStatus(id, newStatus);
-        const orders = await fetchOrders();
-        setOrders(orders);
+    const handleUpdateOrdertatus = async (id, newStatus) => {
+        await updateOrdertatus(id, newStatus);
+        const order = await fetchOrder();
+        setOrder(order);
     };
 
     return (
@@ -43,13 +43,13 @@ function App() {
                 </Box>
                 <Grid container spacing={4}>
                     <Grid item xs={12} md={10}>
-                        <OrderList orders={orders} onUpdateStatus={handleUpdateOrderStatus} />
+                        <OrderList order={order} onUpdateStatus={handleUpdateOrdertatus} />
                     </Grid>
                     <Grid item xs={12} md={2}>
                         <OrderForm onCreateOrder={handleCreateOrder} />
                     </Grid>
                     <Grid item xs={12}>
-                        <OrderChart orders={orders} />
+                        <OrderChart order={order} />
                     </Grid>
                 </Grid>
             </Box>

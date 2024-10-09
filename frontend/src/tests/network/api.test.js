@@ -1,4 +1,4 @@
-import {fetchOrders, createOrder, updateOrderStatus} from '../../network/api';
+import {fetchOrder, createOrder, updateOrdertatus} from '../../network/api';
 
 global.fetch = jest.fn();
 
@@ -7,9 +7,9 @@ describe('API functions', () => {
         jest.clearAllMocks();
     });
 
-    describe('fetchOrders', () => {
-        it('should fetch all orders and return them', async () => {
-            const mockOrders = [
+    describe('fetchOrder', () => {
+        it('should fetch all order and return them', async () => {
+            const mockOrder = [
                 {
                     id: '1',
                     name: 'Order 1',
@@ -21,13 +21,13 @@ describe('API functions', () => {
             ];
             fetch.mockResolvedValueOnce({
                 ok: true,
-                json: async () => mockOrders,
+                json: async () => mockOrder,
             });
 
-            const result = await fetchOrders();
+            const result = await fetchOrder();
 
-            expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/orders');
-            expect(result).toEqual(mockOrders.map(order => ({
+            expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/order');
+            expect(result).toEqual(mockOrder.map(order => ({
                 ...order,
                 createdAt: new Date(order.createdAt),
                 updatedAt: new Date(order.updatedAt)
@@ -40,9 +40,9 @@ describe('API functions', () => {
                 statusText: 'Request failed',
             });
 
-            const result = await fetchOrders();
+            const result = await fetchOrder();
 
-            expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/orders');
+            expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/order');
             expect(result).toEqual([]);
         });
     });
@@ -55,7 +55,7 @@ describe('API functions', () => {
 
             await createOrder('Test Order', 100, 'pending');
 
-            expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/orders', {
+            expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/order', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({name: 'Test Order', amount: 100, status: 'pending'}),
@@ -75,15 +75,15 @@ describe('API functions', () => {
         });
     });
 
-    describe('updateOrderStatus', () => {
+    describe('updateOrdertatus', () => {
         it('should update the order status', async () => {
             fetch.mockResolvedValueOnce({
                 ok: true,
             });
 
-            await updateOrderStatus('1', 'completed');
+            await updateOrdertatus('1', 'completed');
 
-            expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/orders/1', {
+            expect(fetch).toHaveBeenCalledWith('http://localhost:4000/api/order/1', {
                 method: 'PATCH',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({status: 'completed'}),
@@ -97,7 +97,7 @@ describe('API functions', () => {
                 statusText: 'Request failed',
             });
 
-            await updateOrderStatus('1', 'completed');
+            await updateOrdertatus('1', 'completed');
 
             expect(console.error).toHaveBeenCalledWith('Failed to update order status:', new Error('Network response was not ok'));
         });

@@ -1,17 +1,17 @@
 import {render, screen, waitFor} from '@testing-library/react';
 import App from '../App';
-import {fetchOrders} from '../network/api';
+import {fetchOrder} from '../network/api';
 
 jest.mock('../network/api');
 
-const mockOrders = [
+const mockOrder = [
     {id: 1, name: 'Order 1', amount: 100, status: 'Pending'},
     {id: 2, name: 'Order 2', amount: 200, status: 'Completed'},
 ];
 
 describe('App Component', () => {
     beforeEach(() => {
-        fetchOrders.mockResolvedValue(mockOrders);
+        fetchOrder.mockResolvedValue(mockOrder);
     });
 
     test('renders logo', async () => {
@@ -24,7 +24,7 @@ describe('App Component', () => {
         render(<App/>);
         await waitFor(() => {
             const orderItems = screen.getAllByText(/Order/i);
-            expect(orderItems.length).toBe(mockOrders.length);
+            expect(orderItems.length).toBe(mockOrder.length);
         });
     });
 });

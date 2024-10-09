@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import Chart from 'chart.js/auto';
 
-const OrderChart = ({ orders }) => {
+const OrderChart = ({ order }) => {
     const chartRef = useRef(null);
 
     useEffect(() => {
@@ -10,11 +10,11 @@ const OrderChart = ({ orders }) => {
         }
 
         const data = {
-            labels: orders.map(order => new Date(order.createdAt).toLocaleTimeString()),
+            labels: order.map(order => new Date(order.createdAt).toLocaleTimeString()),
             datasets: [
                 {
                     label: 'Order Amount',
-                    data: orders.map(order => order.amount),
+                    data: order.map(order => order.amount),
                     fill: false,
                     backgroundColor: 'rgb(75, 192, 192)',
                     borderColor: 'rgba(75, 192, 192, 0.2)',
@@ -33,7 +33,7 @@ const OrderChart = ({ orders }) => {
                 chartRef.current.destroy();
             }
         };
-    }, [orders]);
+    }, [order]);
 
     return <canvas id="orderChart"></canvas>;
 };

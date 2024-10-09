@@ -1,11 +1,11 @@
 import Order from '../models/order';
 
-class Orders {
+class Order {
     constructor() {
 
     }
 
-    async createOrders(req, res, next) {
+    async createOrder(req, res, next) {
         const { name, amount, status } = req.body;
 
         try {
@@ -65,12 +65,12 @@ class Orders {
         }
     }
 
-    async getOrders(req, res, next) {
+    async getOrder(req, res, next) {
         try {
-            const orders = await Order.findAll();
-            res.json(orders);
+            const order = await Order.findAll();
+            res.json(order);
         } catch (error) {
-            next(new Error(`Error fetching orders: ${error.message}`));
+            next(new Error(`Error fetching order: ${error.message}`));
         }
     }
 
@@ -90,4 +90,4 @@ class Orders {
     }
 }
 
-export default new Orders()
+export default new Order()

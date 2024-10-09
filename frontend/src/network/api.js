@@ -1,8 +1,8 @@
 const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:4000';
 
-export const fetchOrders = async () => {
+export const fetchOrder = async () => {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/orders`);
+        const response = await fetch(`${API_BASE_URL}/api/order`);
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -13,14 +13,14 @@ export const fetchOrders = async () => {
             updatedAt: new Date(order.updatedAt)
         }));
     } catch (error) {
-        console.error('Failed to fetch orders:', error);
+        console.error('Failed to fetch order:', error);
         return [];
     }
 };
 
 export const createOrder = async (name, amount, status) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/orders`, {
+        const response = await fetch(`${API_BASE_URL}/api/order`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -35,9 +35,9 @@ export const createOrder = async (name, amount, status) => {
     }
 };
 
-export const updateOrderStatus = async (id, newStatus) => {
+export const updateOrdertatus = async (id, newStatus) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/api/orders/${id}`, {
+        const response = await fetch(`${API_BASE_URL}/api/order/${id}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',

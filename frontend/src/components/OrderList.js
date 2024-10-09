@@ -1,11 +1,11 @@
 import React from 'react';
 import { List, ListItem, ListItemText, Typography, Button, Box } from '@mui/material';
 
-const OrderList = ({ orders, onUpdateStatus }) => {
-    if (orders.length === 0) {
+const OrderList = ({ order, onUpdateStatus }) => {
+    if (order.length === 0) {
         return (
             <Typography variant="h6" align="left">
-                No orders available.
+                No order available.
             </Typography>
         );
     }
@@ -13,7 +13,7 @@ const OrderList = ({ orders, onUpdateStatus }) => {
     return (
         <Box mt={4}>
             <List>
-                {orders.map((order) => (
+                {order.map((order) => (
                     <ListItem key={order.id} divider>
                         <ListItemText
                             primary={`${order.name} - ${order.amount}`}
