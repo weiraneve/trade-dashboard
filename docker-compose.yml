@@ -34,7 +34,7 @@ services:
       MYSQL_ROOT_PASSWORD: 123456
       MYSQL_DATABASE: trade
     volumes:
-      - ./backend/sql/order.sql:/docker-entrypoint-initdb.d/order.sql
+      - ./backend/sql/orders.sql:/docker-entrypoint-initdb.d/orders.sql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "--silent"]
       interval: 10s
