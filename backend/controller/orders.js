@@ -1,4 +1,4 @@
-const { createOrder, updateOrderStatus, getOrderById, getAllOrders } = require('../models/order');
+import { createOrder, updateOrderStatus, getOrderById, getAllOrders } from '../models/order';
 
 
 class Orders {

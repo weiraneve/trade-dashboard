@@ -1,4 +1,4 @@
-const { getConnection } = require('../config/db');
+import { getConnection } from '../config/db';
 
 const createOrder = async (name, amount, status) => {
     const connection = getConnection();
@@ -33,4 +33,4 @@ const getAllOrders = async () => {
     return rows;
 };
 
-module.exports = { createOrder, updateOrderStatus, getOrderById, getAllOrders };
+export { createOrder, updateOrderStatus, getOrderById, getAllOrders };

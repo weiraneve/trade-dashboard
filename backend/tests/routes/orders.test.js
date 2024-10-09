@@ -1,7 +1,8 @@
-const request = require('supertest');
-const express = require('express');
-const ordersRouter = require('../../routes/orders');
-const { createOrder, updateOrderStatus, getOrderById, getAllOrders } = require('../../models/order');
+import request from 'supertest';
+import express from 'express';
+import ordersRouter from '../../routes/orders';
+import { createOrder, updateOrderStatus, getOrderById, getAllOrders } from '../../models/order';
+
 
 const app = express();
 app.use(express.json());

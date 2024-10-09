@@ -1,5 +1,5 @@
-const { createOrder, updateOrderStatus, getOrderById, getAllOrders } = require('../../models/order');
-const { getConnection } = require('../../config/db');
+import { createOrder, updateOrderStatus, getOrderById, getAllOrders } from '../models/order';
+import { getConnection } from '../../config/db';
 
 jest.mock('../../config/db');
 
