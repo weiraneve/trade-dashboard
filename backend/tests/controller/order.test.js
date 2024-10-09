@@ -1,5 +1,5 @@
-import OrderModel from '../../models/order';
-import OrderController from '../../controller/order';
+import OrderModel from '../../models/order.js';
+import OrderController from '../../controller/order.js';
 
 jest.mock('../../models/order');
 

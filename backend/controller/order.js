@@ -1,4 +1,4 @@
-import OrderModel from '../models/order';
+import OrderModel from '../models/order.js';
 
 class Order {
     constructor() {

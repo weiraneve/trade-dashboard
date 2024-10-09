@@ -1,8 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import orderRoutes from './routes/order';
-import { createConnection } from './config/db';
+import orderRoutes from './routes/order.js';
+import sequelize from './config/db.js';
 
 dotenv.config();
 
@@ -17,12 +17,12 @@ app.use(cors({
 app.use(express.json());
 app.use('/', orderRoutes);
 
-createConnection()
+sequelize.authenticate()
     .then(() => {
         app.listen(PORT, () => {
             console.log(`Server running on port ${PORT}`);
         });
     })
     .catch(err => {
-        console.error('Failed to connect to the database:', err);
+        console.error('无法连接到数据库:', err);
     });
