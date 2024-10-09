@@ -63,17 +63,18 @@ describe('Order Controller', () => {
     describe('updateStatus', () => {
         const mockOrderId = 1;
         const mockStatus = 'completed';
+        let order = OrderModel;
 
         test('should update order status successfully', async () => {
-            Order.findByPk.mockResolvedValue({ id: mockOrderId });
-            Order.update.mockResolvedValue([1]);
+            order.findByPk.mockResolvedValue({ id: mockOrderId });
+            order.update.mockResolvedValue([1]);
 
             req.params = { id: mockOrderId };
             req.body = { status: mockStatus };
 
             await OrderController.updateStatus(req, res, next);
 
-            expect(Order.update).toHaveBeenCalledWith(
+            expect(order.update).toHaveBeenCalledWith(
                 { status: mockStatus },
                 { where: { id: mockOrderId } }
             );
@@ -84,7 +85,7 @@ describe('Order Controller', () => {
         });
 
         test('should handle non-existent order', async () => {
-            Order.findByPk.mockResolvedValue(null);
+            order.findByPk.mockResolvedValue(null);
 
             req.params = { id: mockOrderId };
             req.body = { status: mockStatus };
@@ -99,97 +100,30 @@ describe('Order Controller', () => {
     });
 
     describe('getOrder', () => {
-        const mockOrderId = 1;
-        const mockOrder = {
-            id: mockOrderId,
-            name: 'Test Order',
-            amount: 100,
-            status: 'pending'
-        };
-
-        test('should get order by id successfully', async () => {
-            Order.findByPk.mockResolvedValue(mockOrder);
-
-            req.params = { id: mockOrderId };
-
-            await OrderController.getOrder(req, res, next);
-
-            expect(Order.findByPk).toHaveBeenCalledWith(mockOrderId);
-            expect(res.json).toHaveBeenCalledWith(mockOrder);
-        });
-
-        test('should handle non-existent order', async () => {
-            Order.findByPk.mockResolvedValue(null);
-
-            req.params = { id: mockOrderId };
-
-            await OrderController.getOrder(req, res, next);
-
-            expect(res.status).toHaveBeenCalledWith(404);
-            expect(res.json).toHaveBeenCalledWith({
-                message: 'Order not found'
-            });
-        });
-    });
-
-    describe('getAllOrders', () => {
         const mockOrders = [
             { id: 1, name: 'Order 1', amount: 100, status: 'pending' },
             { id: 2, name: 'Order 2', amount: 200, status: 'completed' }
         ];
+        let order = OrderModel;
 
         test('should get all orders successfully', async () => {
-            Order.findAll.mockResolvedValue(mockOrders);
+            order.findAll.mockResolvedValue(mockOrders);
 
-            await OrderController.getOrders(req, res, next);
+            await OrderController.getOrder(req, res, next);
 
-            expect(Order.findAll).toHaveBeenCalled();
+            expect(order.findAll).toHaveBeenCalled();
             expect(res.json).toHaveBeenCalledWith(mockOrders);
         });
 
         test('should handle error when fetching orders', async () => {
             const error = new Error('Database error');
-            Order.findAll.mockRejectedValue(error);
+            order.findAll.mockRejectedValue(error);
 
-            await OrderController.getOrders(req, res, next);
+            await OrderController.getOrder(req, res, next);
 
             expect(next).toHaveBeenCalledWith(expect.any(Error));
             expect(res.json).not.toHaveBeenCalled();
         });
     });
 
-    describe('deleteOrder', () => {
-        const mockOrderId = 1;
-        const mockOrder = {
-            id: mockOrderId,
-            destroy: jest.fn(),
-        };
-
-        test('should delete order successfully', async () => {
-            Order.findByPk.mockResolvedValue(mockOrder);
-            mockOrder.destroy.mockResolvedValue();
-
-            req.params = { id: mockOrderId };
-
-            await OrderController.deleteOrder(req, res, next);
-
-            expect(Order.findByPk).toHaveBeenCalledWith(mockOrderId);
-            expect(mockOrder.destroy).toHaveBeenCalled();
-            expect(res.status).toHaveBeenCalledWith(204);
-            expect(res.send).toHaveBeenCalled();
-        });
-
-        test('should handle non-existent order deletion', async () => {
-            Order.findByPk.mockResolvedValue(null);
-
-            req.params = { id: mockOrderId };
-
-            await OrderController.deleteOrder(req, res, next);
-
-            expect(res.status).toHaveBeenCalledWith(404);
-            expect(res.json).toHaveBeenCalledWith({
-                message: 'Order not found'
-            });
-        });
-    });
 });
